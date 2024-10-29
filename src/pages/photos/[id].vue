@@ -8,19 +8,18 @@
       </v-card-text>
     </v-card>
 
-    <v-alert v-else type="error" class="mt-5">
-      Photo not found. You may return to the
-      <RouterLink to="/" class="text-white">gallery</RouterLink>.
-    </v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import { useRouteId } from "@/hooks/useRoute";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const photosStore = usePhotosStore();
 const routeId = useRouteId();
 
 const photo = computed(() => photosStore.getPhotoById(routeId));
+
+usePageTitle(`Photo: ${photo.value?.title}`);
 </script>

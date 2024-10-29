@@ -12,9 +12,10 @@
 </template>
 
 <script lang="ts" setup>
+import { RouteLocationNormalizedLoaded } from "vue-router";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import { useGridStore } from "@/stores/useGridStore";
-import { RouteLocationNormalizedLoaded } from "vue-router";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 type RouteWithId = RouteLocationNormalizedLoaded & {
   params: { id: string };
@@ -29,6 +30,8 @@ const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
   photos.value.length ? `(${photos.value.length} photos)` : ""
 );
+
+usePageTitle("Albums");
 </script>
 
 <style scoped lang="scss">

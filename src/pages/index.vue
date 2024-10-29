@@ -24,6 +24,9 @@
 <script lang="ts" setup>
 import { useGridStore } from "@/stores/useGridStore";
 import { usePhotosStore } from "@/stores/usePhotosStore";
+import { usePageTitle } from "@/hooks/usePageTitle";
+
+usePageTitle("Photos");
 
 const gridStore = useGridStore();
 const photosStore = usePhotosStore();
