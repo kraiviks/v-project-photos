@@ -12,7 +12,6 @@ declare module 'vue' {
     Grid5Icon: typeof import('./components/icons/Grid5Icon.vue')['default']
     GridSize: typeof import('./components/shared/GridSize.vue')['default']
     NavList: typeof import('./components/shared/NavList.vue')['default']
-    NotFound: typeof import('./components/NotFound.vue')['default']
     PhotoManager: typeof import('./components/PhotoManager.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
