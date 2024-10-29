@@ -147,5 +147,9 @@ export const usePhotosStore = defineStore("photos-store", {
         return undefined;
       }
     },
+
+    getPhotosByAlbumId(albumId: string): Photo[] {
+      return this.photosByAlbum[albumId] || [];
+    },
   },
 });

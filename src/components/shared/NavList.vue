@@ -24,9 +24,9 @@
         v-for="(item, index) in list"
         :key="index"
         :title="item.title"
-        :href="item.href"
         rounded="0"
         min-height="30"
+        @click="$router.push(item.href)"
         class="pl-5 text-grey-lighten-1 list-item-hover"
         :active="item.href === route.fullPath"
       >
