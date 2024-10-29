@@ -25,13 +25,16 @@ const route = useRoute();
 const photosStore = usePhotosStore();
 const gridStore = useGridStore();
 
-const id = computed(() => (route.params as RouteWithId["params"]).id);
+const id = computed(() => {
+  const id = (route.params as RouteWithId["params"]).id;
+  usePageTitle("Album: " + id);
+  return id;
+});
 const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
   photos.value.length ? `(${photos.value.length} photos)` : ""
 );
 
-usePageTitle("Albums");
 </script>
 
 <style scoped lang="scss">
