@@ -1,6 +1,6 @@
 <template>
   <v-container class="overflow-hidden">
-    <TheCard :title="albumId" :subtitle="subtitle" withActions>
+    <TheCard :title="id" :subtitle="subtitle" withActions>
       <div
         class="grid"
         :style="{ gridTemplateColumns: `repeat(${gridStore.columns}, 1fr)` }"
@@ -12,16 +12,20 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouteId } from "@/hooks/useRoute";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import { useGridStore } from "@/stores/useGridStore";
+import { RouteLocationNormalizedLoaded } from "vue-router";
+
+type RouteWithId = RouteLocationNormalizedLoaded & {
+  params: { id: string };
+};
 
 const route = useRoute();
 const photosStore = usePhotosStore();
 const gridStore = useGridStore();
 
-const albumId = computed(() => route.params.id);
-const photos = computed(() => photosStore.getPhotosByAlbumId(albumId.value));
+const id = computed(() => (route.params as RouteWithId["params"]).id);
+const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
   photos.value.length ? `(${photos.value.length} photos)` : ""
 );
