@@ -136,16 +136,14 @@ export const usePhotosStore = defineStore("photos-store", {
       }
     },
 
-    getPhotoById(id: string | number): Photo | undefined {
+    getPhotoById(id: string): Photo | undefined {
       for (const albumId in this.photosByAlbum) {
         const photo = this.photosByAlbum[albumId].find(
-          (photo: Photo) =>
-            String(photo.id).toLowerCase() === String(id).toLowerCase()
+          (photo: Photo) => photo.id === id
         );
         if (photo) return photo; // Return first found photo
-
-        return undefined;
       }
+      return undefined;
     },
 
     getPhotosByAlbumId(albumId: string): Photo[] {
