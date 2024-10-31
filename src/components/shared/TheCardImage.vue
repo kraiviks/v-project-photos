@@ -4,7 +4,7 @@
       :src="item.url"
       class="bg-grey-lighten-2 w-100 h-100 card-image"
       :style="{
-        minHeight: minHeightStyle,
+        maxHeight: isMaxHeight ? 'calc(100vh - 150px)' : '',
         cursor: isMaxHeight ? 'default' : 'pointer',
       }"
       :alt="item.title"
@@ -12,6 +12,7 @@
       cover
       aspect-ratio="16/9"
       @click="!isMaxHeight && router.push(`/photos/${item.id}`)"
+      @load="() => (isLoaded = true)"
     >
       <template v-slot:placeholder>
         <div class="d-flex align-center justify-center fill-height">
@@ -49,13 +50,14 @@
       </div>
     </v-img>
     <!-- Display item ID -->
-    <div class="mt-4 text-grey-lighten-1 card-id h-100">id - {{ item.id }}</div>
+    <div class="mt-4 text-grey-lighten-1 card-id h-100" v-if="isLoaded">
+      id - {{ item.id }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { usePhotosStore, type Photo } from "@/stores/usePhotosStore";
-import { useGridStore } from "@/stores/useGridStore";
 
 const { item, isMaxHeight } = defineProps<{
   item: Photo;
@@ -64,22 +66,8 @@ const { item, isMaxHeight } = defineProps<{
 
 const router = useRouter();
 const photosStore = usePhotosStore();
-const gridStore = useGridStore();
 
-const minHeightStyle = computed(() => {
-  switch (gridStore.columns) {
-    case 2:
-      return "30px";
-    case 3:
-      return "90px";
-    case 4:
-      return "70px";
-    case 5:
-      return "60px";
-    default:
-      return "285px";
-  }
-});
+const isLoaded = ref<boolean>(false);
 
 const handleDelete = () => {
   if (item.id != null) {
@@ -95,8 +83,12 @@ const handleDelete = () => {
 
 <style scoped lang="scss">
 .card-image-container {
+  width: 100%;
+  height:100%;
   .card-image {
     transition: box-shadow 0.3s ease;
+    width: 100%;
+    height:100%;
   }
 
   .card-id,

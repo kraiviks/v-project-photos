@@ -1,6 +1,6 @@
 <template>
   <v-responsive class="mx-auto mb-5 the-card align-center" max-width="1160">
-    <v-card class="pa-4" rounded="0">
+    <v-card class="pa-4 pb-13" rounded="0">
       <div
         :class="[
           'pa-3 d-flex justify-space-between w-100',
