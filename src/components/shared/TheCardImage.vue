@@ -30,22 +30,21 @@
 
       <!-- Footer overlay with icons for edit and delete -->
       <div class="footer-overlay">
-        <RouterLink :to="`/photos/edit/${item.id}`">
           <v-icon
             class="cursor-pointer action"
             color="#c0c0c0"
             size="20"
             icon="mdi-application-edit-outline"
             title="Edit"
+            @click.stop="router.push(`/photos/edit/${item.id}`)"
           />
-        </RouterLink>
         <v-icon
           class="cursor-pointer action"
           color="#c0c0c0"
           size="20"
           icon="mdi-trash-can"
           title="Delete"
-          @click="handleDelete"
+          @click.stop="handleDelete"
         />
       </div>
     </v-img>
