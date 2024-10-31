@@ -11,11 +11,7 @@
         class="grid"
         :style="{ gridTemplateColumns: `repeat(${gridStore.columns}, 1fr)` }"
       >
-        <TheCardImage
-          v-for="photo in photos"
-          :key="photo.title"
-          :item="photo"
-        />
+        <TheCardImage v-for="photo in photos" :key="photo.id" :item="photo" />
       </div>
     </TheCard>
   </v-container>
@@ -35,6 +31,7 @@ const photosStore = usePhotosStore();
 <style scoped lang="scss">
 .grid {
   display: grid;
-  gap: 8px;
+  row-gap: 70px;
+  column-gap: 15px;
 }
 </style>

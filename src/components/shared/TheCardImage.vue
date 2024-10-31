@@ -1,21 +1,31 @@
 <template>
-  <v-card class="px-1 py-4 card" flat>
-    <!-- Image container with hover effect -->
-    <div
-      class="rounded d-flex position-relative image-container"
-      :style="{ minHeight: minHeightStyle }"
+  <div class="card-image-container">
+    <v-img
+      :src="item.url"
+      class="bg-grey-lighten-2 w-100 h-100 card-image"
+      :style="{
+        minHeight: minHeightStyle,
+        cursor: isMaxHeight ? 'default' : 'pointer',
+      }"
+      :alt="item.title"
+      rounded
+      cover
+      aspect-ratio="16/9"
+      @click="!isMaxHeight && router.push(`/photos/${item.id}`)"
     >
-      <!-- Conditional rendering for max-height or RouterLink -->
-      <v-img
-        :src="item.url"
-        :style="{
-          maxHeight: maxHeightStyle,
-          cursor: isMaxHeight ? 'default' : 'pointer',
-        }"
-        rounded
-        cover
-        @click="!isMaxHeight && router.push(`/photos/${item.id}`)"
-      />
+      <template v-slot:placeholder>
+        <div class="d-flex align-center justify-center fill-height">
+          <v-progress-circular
+            color="grey-lighten-4"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+      </template>
+      <template v-slot:error>
+        <div class="d-flex align-center justify-center fill-height">
+          Error loading image
+        </div>
+      </template>
 
       <!-- Footer overlay with icons for edit and delete -->
       <div class="footer-overlay">
@@ -37,11 +47,10 @@
           @click="handleDelete"
         />
       </div>
-    </div>
-
+    </v-img>
     <!-- Display item ID -->
-    <div class="mt-4 text-grey-lighten-1 card-id">id - {{ item.id }}</div>
-  </v-card>
+    <div class="mt-4 text-grey-lighten-1 card-id h-100">id - {{ item.id }}</div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -57,29 +66,10 @@ const router = useRouter();
 const photosStore = usePhotosStore();
 const gridStore = useGridStore();
 
-const maxHeightStyle = computed(() => {
-  if (isMaxHeight) {
-    return "calc(100vh - 200px)";
-  }
-
-  switch (gridStore.columns) {
-    case 2:
-      return "300px";
-    case 3:
-      return "300px";
-    case 4:
-      return "200px";
-    case 5:
-      return "160px";
-    default:
-      return "600px";
-  }
-});
-
 const minHeightStyle = computed(() => {
   switch (gridStore.columns) {
     case 2:
-      return "120px";
+      return "30px";
     case 3:
       return "90px";
     case 4:
@@ -104,29 +94,34 @@ const handleDelete = () => {
 </script>
 
 <style scoped lang="scss">
-.card {
+.card-image-container {
+  .card-image {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card-id,
+  .action {
+    transition: color 0.3s;
+  }
+
   &:hover {
-    .card-id {
-      transition: color 0.3s;
-      color: #ea5a5a !important;
-    }
-    .image-container {
+    :deep(.v-img) {
       .footer-overlay {
         opacity: 1;
       }
+    }
+    .card-id {
+      color: #ea5a5a !important;
+    }
+    .card-image {
       box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.4);
     }
   }
   .action {
-    transition: color 0.3s;
     &:hover {
       color: #ea5a5a !important;
     }
   }
-}
-
-.image-container {
-  transition: all 0.3s ease;
 }
 
 .footer-overlay {

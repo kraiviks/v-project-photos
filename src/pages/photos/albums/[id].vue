@@ -34,12 +34,12 @@ const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
   photos.value.length ? `(${photos.value.length} photos)` : ""
 );
-
 </script>
 
 <style scoped lang="scss">
 .grid {
   display: grid;
-  gap: 8px;
+  row-gap: 70px;
+  column-gap: 15px;
 }
 </style>
