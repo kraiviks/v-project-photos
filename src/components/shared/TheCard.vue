@@ -52,16 +52,21 @@
 </template>
 
 <script setup lang="ts">
+import { usePhotosStore } from "@/stores/usePhotosStore";
+
 interface TheCardProps {
-  title: string | null;
+  title: string;
   subtitle?: string;
   withActions?: boolean;
 }
 
-withDefaults(defineProps<TheCardProps>(), {
+const props = withDefaults(defineProps<TheCardProps>(), {
   subtitle: "",
   withActions: false,
 });
+
+const router = useRouter();
+const { deleteAlbum } = usePhotosStore();
 
 const isRolled = ref<boolean>(false);
 
@@ -71,7 +76,8 @@ const toggleRoll = () => {
 };
 
 const handleDelete = () => {
-  alert("Coming soon!");
+  deleteAlbum(props.title);
+  router.push('/')
 };
 </script>
 

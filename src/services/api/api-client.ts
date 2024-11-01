@@ -9,4 +9,7 @@ export const Api = {
     axiosInstance.put(`${ApiRoutes.PHOTOS}/${photoId}`, updatedPhoto),
   deletePhoto: (photoId: number | string) =>
     axiosInstance.delete(`${ApiRoutes.PHOTOS}/${photoId}`),
+
+  createAlbum: (album: { albumId: string }) =>
+    axiosInstance.post(ApiRoutes.PHOTOS, album),
 };

@@ -8,14 +8,10 @@
         class="font-weight-bold text-uppercase text-subtitle-2"
         :class="{ 'custom-subheader': subheaderIcon }"
         >{{ title }}
-        <div class="cursor-pointer v-overlay">
-          <v-icon
-            v-if="subheaderIcon"
-            :icon="subheaderIcon"
-            color="primary"
-            @click="subHeaderIconHandler"
-          />
-        </div>
+
+        <AddAlbumModal 
+        v-if="subheaderIcon"
+        :triggerIcon="subheaderIcon"/>
       </v-list-subheader>
 
       <!-- List items -->

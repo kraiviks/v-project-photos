@@ -12,3 +12,9 @@
     >
   </v-container>
 </template>
+
+<script lang="ts" setup>
+import { useTitle } from '@vueuse/core';
+
+useTitle("Not found");
+</script>

@@ -14,12 +14,12 @@
 <script setup lang="ts">
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import { useRouteId } from "@/hooks/useRoute";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { useTitle } from '@vueuse/core';
 
 const photosStore = usePhotosStore();
 const routeId = useRouteId();
 
 const photo = computed(() => photosStore.getPhotoById(routeId));
 
-usePageTitle(`Photo: ${photo.value?.title}`);
+useTitle(`Photo: ${photo.value?.title}`);
 </script>

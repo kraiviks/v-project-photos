@@ -15,7 +15,7 @@
 import { RouteLocationNormalizedLoaded } from "vue-router";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import { useGridStore } from "@/stores/useGridStore";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { useTitle } from '@vueuse/core';
 
 type RouteWithId = RouteLocationNormalizedLoaded & {
   params: { id: string };
@@ -27,9 +27,11 @@ const gridStore = useGridStore();
 
 const id = computed(() => {
   const id = (route.params as RouteWithId["params"]).id;
-  usePageTitle("Album: " + id);
   return id;
 });
+
+useTitle("Album: " + id);
+
 const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
   photos.value.length ? `(${photos.value.length} photos)` : ""

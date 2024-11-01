@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { useTitle } from '@vueuse/core';
 
-usePageTitle("Upload");
+useTitle("Upload");
 </script>

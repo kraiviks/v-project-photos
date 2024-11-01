@@ -3,7 +3,7 @@
     <TheCard
       withActions
       v-for="(photos, index) in photosStore.photosByAlbum"
-      :title="photos[0].albumId"
+      :title="photos[0].albumId!"
       :subtitle="`(${photos.length} photos)`"
       :key="index"
     >
@@ -20,9 +20,9 @@
 <script lang="ts" setup>
 import { useGridStore } from "@/stores/useGridStore";
 import { usePhotosStore } from "@/stores/usePhotosStore";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { useTitle } from '@vueuse/core';
 
-usePageTitle("Photos");
+useTitle("Photos");
 
 const gridStore = useGridStore();
 const photosStore = usePhotosStore();

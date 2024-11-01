@@ -149,5 +149,41 @@ export const usePhotosStore = defineStore("photos-store", {
     getPhotosByAlbumId(albumId: string): Photo[] {
       return this.photosByAlbum[albumId] || [];
     },
+
+    async createAlbum(title: string) {
+      this.error = null;
+
+      try {
+        const response = await Api.createAlbum({ albumId: title });
+        this.addPhotoToAlbum(response.data);
+        this.addAlbum({ title, href: `/photos/albums/${title}` });
+      } catch (error: any) {
+        this.error = error.message || "Failed to create album.";
+      }
+    },
+
+    addAlbum(album: Album) {
+      this.albums.push(album);
+    },
+
+    async deleteAlbum(albumId: string) {
+      this.error = null;
+
+      try {
+        const photosToDelete = this.photosByAlbum[albumId] || [];
+        for (const photo of photosToDelete) {
+          await Api.deletePhoto(photo.id!);
+        }
+
+        this.deleteAlbumFromState(albumId);
+      } catch (error: any) {
+        this.error = error.message || "Failed to delete album.";
+      }
+    },
+
+    deleteAlbumFromState(albumId: string) {
+      delete this.photosByAlbum[albumId];
+      this.albums = this.albums.filter((album) => album.title !== albumId);
+    },
   },
 });
