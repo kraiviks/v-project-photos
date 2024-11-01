@@ -7,11 +7,12 @@
         color="text-category"
         class="font-weight-bold text-uppercase text-subtitle-2"
         :class="{ 'custom-subheader': subheaderIcon }"
-        >{{ title }}
-
-        <AddAlbumModal 
-        v-if="subheaderIcon"
-        :triggerIcon="subheaderIcon"/>
+      >
+        {{ title }}
+        <AddAlbumModal
+          v-if="subheaderIcon"
+          :triggerIcon="subheaderIcon"
+        />
       </v-list-subheader>
 
       <!-- List items -->

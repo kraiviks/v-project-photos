@@ -42,6 +42,7 @@ const updateOpen = (value: boolean) => {
 
 <style scoped lang="scss">
 .modal-icon-container {
+  margin-right: -17px;
   transition: transform 0.3s ease-in-out;
   &:hover {
     transform: scale(1.1);

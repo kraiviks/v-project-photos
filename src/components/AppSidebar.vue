@@ -47,7 +47,9 @@
         </div>
       </v-col>
 
-      <SearchFiles />
+      <v-col class="pa-0 flex-0-0">
+        <SearchFiles />
+      </v-col>
 
       <v-col class="mt-3 pa-0">
         <NavList title="Categories" :list="CATEGORIES" />
