@@ -30,7 +30,7 @@ const id = computed(() => {
   return id;
 });
 
-useTitle("Album: " + id);
+useTitle("Album: " + id.value);
 
 const photos = computed(() => photosStore.getPhotosByAlbumId(id.value));
 const subtitle = computed(() =>
