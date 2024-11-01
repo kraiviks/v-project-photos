@@ -30,6 +30,7 @@
             text="Create"
             variant="tonal"
             @click="createAlbum"
+            :disabled="!albumName"
           ></v-btn>
         </v-card-actions>
       </v-card>
@@ -49,8 +50,10 @@ const albumName = ref<string>("");
 const photoStore = usePhotosStore();
 
 const createAlbum = () => {
-  photoStore.createAlbum(albumName.value);
-  albumName.value = "";
-  isOpen.value = false;
+  if (albumName.value) {
+    photoStore.createAlbum(albumName.value);
+    albumName.value = "";
+    isOpen.value = false;
+  }
 };
 </script>
