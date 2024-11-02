@@ -6,7 +6,7 @@
           'pa-3 d-flex justify-space-between w-100',
           { collapsed: !isOpen, 'cursor-pointer': !isOpen },
         ]"
-        @click="toggleRoll"
+        @click="toggleCollapse"
       >
         <v-card-title class="ma-0 pa-0 text-grey-darken-2">
           <span
@@ -26,12 +26,12 @@
         <!-- Actions section -->
         <v-row class="actions flex-0-0" align="center" v-if="withActions">
           <v-icon
-            :class="`cursor-pointer action ${isOpen && 'action-rotate'}`"
+            :class="`cursor-pointer action ${!isOpen && 'action-rotate'}`"
             color="#c0c0c0"
             size="50"
             icon="mdi-chevron-down"
-            :title="isOpen ? 'Expand' : 'Collapse'"
-            @click="toggleRoll"
+            :title="!isOpen ? 'Expand' : 'Collapse'"
+            @click.stop="toggleCollapse"
           />
           <ConfirmRemoveModal :remove="removeItem" />
         </v-row>
@@ -64,7 +64,7 @@ const photoStore = usePhotosStore();
 const isOpen = ref<boolean>(true);
 
 // Toggle function for collapsing/expanding card
-const toggleRoll = () => {
+const toggleCollapse = () => {
   isOpen.value = !isOpen.value;
 };
 
