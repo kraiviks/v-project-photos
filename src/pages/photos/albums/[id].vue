@@ -5,7 +5,7 @@
         class="grid"
         :style="{ gridTemplateColumns: `repeat(${gridStore.columns}, 1fr)` }"
       >
-        <TheCardImage v-for="item in photos" :key="item!.title" :item="item" />
+        <TheCardImage v-for="item in photos" :key="item!.id" :item="item" />
       </div>
     </TheCard>
   </v-container>

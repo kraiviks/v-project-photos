@@ -23,21 +23,21 @@
         </div>
       </template>
       <template v-slot:error>
-        <div class="d-flex align-center justify-center fill-height">
+        <div class="d-flex align-center justify-center fill-height text-center">
           Error loading image
         </div>
       </template>
 
       <!-- Footer overlay with icons for edit and delete -->
       <div class="footer-overlay">
-          <v-icon
-            class="cursor-pointer action"
-            color="#c0c0c0"
-            size="20"
-            icon="mdi-application-edit-outline"
-            title="Edit"
-            @click.stop="router.push(`/photos/edit/${item.id}`)"
-          />
+        <v-icon
+          class="cursor-pointer action"
+          color="#c0c0c0"
+          size="20"
+          icon="mdi-application-edit-outline"
+          title="Edit"
+          @click.stop="router.push(`/photos/edit/${item.id}`)"
+        />
         <v-icon
           class="cursor-pointer action"
           color="#c0c0c0"
@@ -83,11 +83,11 @@ const handleDelete = () => {
 <style scoped lang="scss">
 .card-image-container {
   width: 100%;
-  height:100%;
+  height: 100%;
   .card-image {
     transition: box-shadow 0.3s ease;
     width: 100%;
-    height:100%;
+    height: 100%;
   }
 
   .card-id,

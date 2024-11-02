@@ -25,7 +25,7 @@
               variant="outlined"
               density="compact"
               v-model="photoData.albumId"
-              :rules="[(v) => !!v || 'Album is required']"
+              :rules="[requiredField]"
             />
 
             <label for="description">Description:</label>
@@ -35,7 +35,7 @@
               rows="2"
               density="compact"
               v-model="photoData.title"
-              :rules="[(v) => !!v || 'Description is required']"
+              :rules="[requiredField]"
             />
 
             <label for="url">Url:</label>
@@ -44,7 +44,7 @@
               variant="outlined"
               density="compact"
               v-model="photoData.url"
-              :rules="[(v) => !!v || 'Url is required']"
+              :rules="[requiredField]"
             />
 
             <v-card-actions class="justify-end mt-3 ga-2">
@@ -101,6 +101,7 @@ const photosStore = usePhotosStore();
 const valid = ref<boolean>(false);
 const form = ref<HTMLFormElement | null>(null);
 
+
 const photoData = reactive<Photo>({
   id: undefined,
   albumId: null,
@@ -108,10 +109,12 @@ const photoData = reactive<Photo>({
   url: "",
 });
 
+const requiredField = (v: string) => (!!v && v.trim() !== '') || 'Field is required';
+
 const save = () => {
   if (form.value?.checkValidity()) {
     photosStore.updatePhoto(routeId, photoData);
-    router.back();
+    router.push("/");
   }
 };
 
@@ -122,7 +125,7 @@ const createRecord = () => {
       url: photoData.url,
       albumId: photoData.albumId,
     });
-    router.back();
+    router.push("/");
   }
 };
 
