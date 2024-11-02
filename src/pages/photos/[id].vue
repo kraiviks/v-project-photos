@@ -7,19 +7,27 @@
         <p>Album ID: {{ photo.albumId }}</p>
       </v-card-text>
     </v-card>
-
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { usePhotosStore } from "@/stores/usePhotosStore";
-import { useRouteId } from "@/hooks/useRoute";
-import { useTitle } from '@vueuse/core';
+import { useTitle } from "@vueuse/core";
+import { RouteLocationNormalizedLoaded } from "vue-router";
+
+type RouteWithId = RouteLocationNormalizedLoaded & {
+  params: { id: string };
+};
 
 const photosStore = usePhotosStore();
-const routeId = useRouteId();
+const route = useRoute();
 
-const photo = computed(() => photosStore.getPhotoById(routeId));
+const id = computed(() => {
+  const id = (route.params as RouteWithId["params"]).id;
+  return id;
+});
+
+const photo = computed(() => photosStore.getPhotoById(id.value));
 
 useTitle(`Photo: ${photo.value?.title}`);
 </script>
