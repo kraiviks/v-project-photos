@@ -20,6 +20,7 @@ const myCustomLightTheme = {
     "text-category": "#d6d5df",
     "text-list-item": "a3a2a8",
     "btn-primary": "#28a745",
+    "btn-dangerous": "#dc3545",
   },
 };
 

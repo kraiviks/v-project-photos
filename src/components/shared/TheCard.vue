@@ -32,14 +32,7 @@
             :title="isRolled ? 'Expand' : 'Collapse'"
             @click="toggleRoll"
           />
-          <v-icon
-            class="cursor-pointer action"
-            color="#c0c0c0"
-            size="30"
-            icon="mdi-trash-can"
-            title="Delete"
-            @click="handleDelete"
-          />
+          <ConfirmRemoveModal :remove="removeItem" />
         </v-row>
       </div>
 
@@ -52,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePhotosStore } from "@/stores/usePhotosStore";
+import { usePhotosStore } from '@/stores/usePhotosStore';
 
 interface TheCardProps {
   title: string;
@@ -65,9 +58,8 @@ const props = withDefaults(defineProps<TheCardProps>(), {
   withActions: false,
 });
 
-const router = useRouter();
-const { deleteAlbum } = usePhotosStore();
-
+const router = useRouter()
+const photoStore = usePhotosStore();
 const isRolled = ref<boolean>(false);
 
 // Toggle function for collapsing/expanding card
@@ -75,9 +67,9 @@ const toggleRoll = () => {
   isRolled.value = !isRolled.value;
 };
 
-const handleDelete = () => {
-  deleteAlbum(props.title);
-  router.push('/')
+const removeItem = () => {
+  photoStore.deleteAlbum(props.title);
+  router.push("/");
 };
 </script>
 

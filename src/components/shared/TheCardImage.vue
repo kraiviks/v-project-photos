@@ -38,13 +38,10 @@
           title="Edit"
           @click.stop="router.push(`/photos/edit/${item.id}`)"
         />
-        <v-icon
-          class="cursor-pointer action"
-          color="#c0c0c0"
+        <ConfirmRemoveModal
           size="20"
-          icon="mdi-trash-can"
-          title="Delete"
-          @click.stop="handleDelete"
+          :remove="handleDelete"
+          hoverIconColor="#ea5a5a"
         />
       </div>
     </v-img>
