@@ -4,8 +4,9 @@
       <div
         :class="[
           'pa-3 d-flex justify-space-between w-100',
-          { collapsed: isRolled },
+          { collapsed: !isOpen, 'cursor-pointer': !isOpen },
         ]"
+        @click="toggleRoll"
       >
         <v-card-title class="ma-0 pa-0 text-grey-darken-2">
           <span
@@ -25,11 +26,11 @@
         <!-- Actions section -->
         <v-row class="actions flex-0-0" align="center" v-if="withActions">
           <v-icon
-            :class="`cursor-pointer action ${isRolled && 'action-rotate'}`"
+            :class="`cursor-pointer action ${isOpen && 'action-rotate'}`"
             color="#c0c0c0"
             size="50"
             icon="mdi-chevron-down"
-            :title="isRolled ? 'Expand' : 'Collapse'"
+            :title="isOpen ? 'Expand' : 'Collapse'"
             @click="toggleRoll"
           />
           <ConfirmRemoveModal :remove="removeItem" />
@@ -38,14 +39,14 @@
 
       <!-- Content with slide transition -->
       <v-expand-transition>
-        <slot v-if="!isRolled" />
+        <slot v-if="isOpen" />
       </v-expand-transition>
     </v-card>
   </v-responsive>
 </template>
 
 <script setup lang="ts">
-import { usePhotosStore } from '@/stores/usePhotosStore';
+import { usePhotosStore } from "@/stores/usePhotosStore";
 
 interface TheCardProps {
   title: string;
@@ -58,13 +59,13 @@ const props = withDefaults(defineProps<TheCardProps>(), {
   withActions: false,
 });
 
-const router = useRouter()
+const router = useRouter();
 const photoStore = usePhotosStore();
-const isRolled = ref<boolean>(false);
+const isOpen = ref<boolean>(true);
 
 // Toggle function for collapsing/expanding card
 const toggleRoll = () => {
-  isRolled.value = !isRolled.value;
+  isOpen.value = !isOpen.value;
 };
 
 const removeItem = () => {
