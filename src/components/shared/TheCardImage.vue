@@ -65,11 +65,11 @@ const photosStore = usePhotosStore();
 
 const isLoaded = ref<boolean>(false);
 
-const handleDelete = () => {
+const handleDelete = async () => {
   if (item.id != null) {
-    photosStore.deletePhoto(item.id);
-    if (isMaxHeight) {
-      router.back();
+    await photosStore.deletePhoto(item.id);
+    if (isMaxHeight || !photosStore.photosByAlbum[item.albumId!]) {
+      router.push("/");
     }
   } else {
     console.warn("ID is not available for deletion");

@@ -7,9 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AddAlbumModal: typeof import('./components/AddAlbumModal.vue')['default']
+    AddAlbumModal: typeof import('./components/modals/AddAlbumModal.vue')['default']
     AppSidebar: typeof import('./components/AppSidebar.vue')['default']
-    ConfirmRemoveModal: typeof import('./components/shared/ConfirmRemoveModal.vue')['default']
+    ConfirmRemoveModal: typeof import('./components/modals/ConfirmRemoveModal.vue')['default']
     Grid4Icon: typeof import('./components/icons/Grid4Icon.vue')['default']
     Grid5Icon: typeof import('./components/icons/Grid5Icon.vue')['default']
     GridSize: typeof import('./components/shared/GridSize.vue')['default']

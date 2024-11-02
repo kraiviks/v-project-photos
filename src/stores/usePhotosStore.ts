@@ -35,6 +35,16 @@ export const usePhotosStore = defineStore("photos-store", {
       try {
         const response = await Api.createPhoto(photo);
         this.addPhotoToAlbum(response.data); // Add photo to corresponding album
+
+        const album = this.albums.find(
+          (album) => album.title === photo.albumId
+        );
+        if (!album) {
+          this.addAlbum({
+            title: photo.albumId!,
+            href: `/photos/albums/${photo.albumId}`,
+          });
+        }
       } catch (error: any) {
         this.error = error.message || "Failed to create photo.";
       }
@@ -120,8 +130,15 @@ export const usePhotosStore = defineStore("photos-store", {
       this.error = null;
 
       try {
-        await Api.deletePhoto(photoId);
+        const response = await Api.deletePhoto(photoId);
+
         this.deletePhotoFromAlbum(photoId); // Remove photo from album
+
+        const isEmptyAlbum =
+          this.photosByAlbum[response.data.albumId!].length === 0;
+        if (isEmptyAlbum) {
+          this.deleteAlbumFromState(response.data.albumId!);
+        }
       } catch (error: any) {
         this.error = error.message || "Failed to delete photo.";
       }
