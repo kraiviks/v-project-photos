@@ -30,7 +30,7 @@
           Amelia Rice
         </v-list-item-title>
         <v-list-item-subtitle class="text-center text-grey-lighten-3">
-          {{ photosStore.photos.length }} files
+          {{ photosStore.photosAmount }} files
         </v-list-item-subtitle>
         <div class="btn-animate">
           <RouterLink to="/photos/upload">

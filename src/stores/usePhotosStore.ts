@@ -15,17 +15,17 @@ interface Album {
 
 interface PhotoState {
   photosByAlbum: Record<string, Photo[]>; // Group photos by albums
-  photos: Photo[];
   albums: Album[];
   error: string | null;
+  photosAmount: number; // Total number of photos
 }
 
 export const usePhotosStore = defineStore("photos-store", {
   state: (): PhotoState => ({
-    photosByAlbum: {}, // Initialization
-    photos: [],
+    photosByAlbum: {},
     albums: [],
     error: null,
+    photosAmount: 0, // Initialize photo amount
   }),
 
   actions: {
@@ -34,7 +34,8 @@ export const usePhotosStore = defineStore("photos-store", {
 
       try {
         const response = await Api.createPhoto(photo);
-        this.addPhotoToAlbum(response.data); // Add photo to corresponding album
+        this.addPhotoToAlbum(response.data);
+        this.photosAmount++; // Increase photo count
 
         const album = this.albums.find(
           (album) => album.title === photo.albumId
@@ -55,9 +56,8 @@ export const usePhotosStore = defineStore("photos-store", {
 
       try {
         const { data } = await Api.getPhotos();
-
-        this.photos = data;
         this.groupPhotosByAlbum(data);
+        this.photosAmount = data.length; // Set initial photo count
 
         const albums = data.map((item: Photo) => item.albumId);
         const uniqueAlbums = Array.from(new Set(albums)) as string[];
@@ -73,12 +73,10 @@ export const usePhotosStore = defineStore("photos-store", {
       }
     },
 
-    // Function to group photos by albums
     groupPhotosByAlbum(photos: Photo[]) {
       this.photosByAlbum = photos.reduce<Record<string, Photo[]>>(
         (acc, photo) => {
           const albumId = photo.albumId!;
-
           if (!albumId) return acc; // Skip photos without albumId
           if (!acc[albumId]) {
             acc[albumId] = []; // Initialize array for album
@@ -90,16 +88,13 @@ export const usePhotosStore = defineStore("photos-store", {
       );
     },
 
-    // Add new photo to corresponding album
     addPhotoToAlbum(photo: Photo) {
-      if (!photo.albumId) return; // Skip if no albumId
+      if (!photo.albumId) return;
       if (!this.photosByAlbum[photo.albumId]) {
-        this.photosByAlbum[photo.albumId] = []; // Initialize array for album
+        this.photosByAlbum[photo.albumId] = [];
       }
-      this.photosByAlbum[photo.albumId] = [
-        photo,
-        ...this.photosByAlbum[photo.albumId],
-      ]; // Add new photo at the beginning
+      this.photosByAlbum[photo.albumId].unshift(photo); // Add new photo at the beginning
+      this.photosAmount++; // Increase count
     },
 
     async updatePhoto(photoId: number | string, updatedPhoto: Photo) {
@@ -107,13 +102,12 @@ export const usePhotosStore = defineStore("photos-store", {
 
       try {
         const response = await Api.updatePhoto(photoId, updatedPhoto);
-        this.updatePhotoInAlbum(response.data); // Update photo in album
+        this.updatePhotoInAlbum(response.data);
       } catch (error: any) {
         this.error = error.message || "Failed to update photo.";
       }
     },
 
-    // Update photo in corresponding album
     updatePhotoInAlbum(updatedPhoto: Photo) {
       const albumPhotos = this.photosByAlbum[updatedPhoto.albumId!];
       if (albumPhotos) {
@@ -131,8 +125,7 @@ export const usePhotosStore = defineStore("photos-store", {
 
       try {
         const response = await Api.deletePhoto(photoId);
-
-        this.deletePhotoFromAlbum(photoId); // Remove photo from album
+        this.deletePhotoFromAlbum(photoId);
 
         const isEmptyAlbum =
           this.photosByAlbum[response.data.albumId!].length === 0;
@@ -144,12 +137,15 @@ export const usePhotosStore = defineStore("photos-store", {
       }
     },
 
-    // Remove photo from corresponding album
     deletePhotoFromAlbum(photoId: number | string) {
       for (const albumId in this.photosByAlbum) {
+        const initialLength = this.photosByAlbum[albumId].length;
         this.photosByAlbum[albumId] = this.photosByAlbum[albumId].filter(
           (photo: Photo) => photo.id !== photoId
         );
+        if (initialLength > this.photosByAlbum[albumId].length) {
+          this.photosAmount--; // Decrease count
+        }
       }
     },
 
@@ -190,6 +186,7 @@ export const usePhotosStore = defineStore("photos-store", {
         const photosToDelete = this.photosByAlbum[albumId] || [];
         for (const photo of photosToDelete) {
           await Api.deletePhoto(photo.id!);
+          this.photosAmount--; // Decrease count for each photo in the album
         }
 
         this.deleteAlbumFromState(albumId);
