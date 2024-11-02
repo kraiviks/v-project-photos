@@ -44,9 +44,9 @@
       </div>
 
       <!-- Content with slide transition -->
-      <v-slide-y-transition>
+      <v-expand-transition>
         <slot v-if="!isRolled" />
-      </v-slide-y-transition>
+      </v-expand-transition>
     </v-card>
   </v-responsive>
 </template>
