@@ -67,7 +67,7 @@ export const usePhotosStore = defineStore("photos-store", {
             href: `/photos/albums/${item}`,
           };
         });
-        this.albums = albumsData.sort((a, b) => a.title.localeCompare(b.title));
+        this.albums = albumsData;
       } catch (error: any) {
         this.error = error.message || "Failed to fetch photos.";
       }
