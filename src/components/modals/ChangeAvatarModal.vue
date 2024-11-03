@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import { useStorage } from "@vueuse/core";
 import defaultAvatar from "@/assets/avatar.png";
 

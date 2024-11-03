@@ -20,11 +20,26 @@
     <v-col class="pa-0 d-flex flex-column justify-space-between h-100">
       <v-col class="py-8 drawer-header" align="center">
         <ChangeAvatarModal />
+
+        <!-- Editable User Name -->
         <v-list-item-title
-          class="mt-3 mb-2 text-center text-white font-weight-bold text-h7"
+          v-if="!isEditingName"
+          class="mt-3 mb-2 text-center text-white font-weight-bold text-h7 cursor-pointer"
+          @click="enableNameEdit"
         >
-          Amelia Rice
+          {{ userName || "Enter your name" }}
         </v-list-item-title>
+
+        <input
+          v-if="isEditingName"
+          ref="inputChangeNameRef"
+          v-model="userName"
+          class="mt-3 mb-2 text-center text-white font-weight-bold text-h7"
+          placeholder="Enter your name"
+          @blur="isEditingName = false"
+          @keydown.enter="isEditingName = false"
+        />
+
         <v-list-item-subtitle class="text-center text-grey-lighten-3">
           {{ photosStore.photosAmount }} files
         </v-list-item-subtitle>
@@ -75,6 +90,7 @@
 </template>
 
 <script setup lang="ts">
+import { useStorage, onClickOutside } from "@vueuse/core";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 
@@ -85,6 +101,22 @@ const { windowWidth } = useWindowSize();
 
 // Determine if the view is mobile
 const isMobile = computed(() => windowWidth.value < 768);
+
+// User name state and editing flag
+const userName = useStorage("userName", "Amelia Rice");
+const inputChangeNameRef = ref<HTMLInputElement | null>(null);
+const isEditingName = ref<boolean>(false);
+
+onClickOutside(inputChangeNameRef, () => {
+  isEditingName.value = false;
+  console.log("clicked outside");
+});
+
+const enableNameEdit = async () => {
+  isEditingName.value = true;
+  await nextTick();
+  inputChangeNameRef.value?.focus();
+};
 
 // Close drawer on mobile after mounting
 onMounted(() => {
@@ -172,3 +204,4 @@ const CATEGORIES = [
   }
 }
 </style>
+
