@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddAlbumModal: typeof import('./components/modals/AddAlbumModal.vue')['default']
     AppSidebar: typeof import('./components/AppSidebar.vue')['default']
+    ChangeAvatarModal: typeof import('./components/modals/ChangeAvatarModal.vue')['default']
     ConfirmRemoveModal: typeof import('./components/modals/ConfirmRemoveModal.vue')['default']
     Grid4Icon: typeof import('./components/icons/Grid4Icon.vue')['default']
     Grid5Icon: typeof import('./components/icons/Grid5Icon.vue')['default']

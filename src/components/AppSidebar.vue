@@ -19,11 +19,7 @@
     <!-- Drawer Main Content -->
     <v-col class="pa-0 d-flex flex-column justify-space-between h-100">
       <v-col class="py-8 drawer-header" align="center">
-        <v-avatar
-          color="surface-variant"
-          image="@/assets/avatar.png"
-          size="80"
-        />
+        <ChangeAvatarModal />
         <v-list-item-title
           class="mt-3 mb-2 text-center text-white font-weight-bold text-h7"
         >
