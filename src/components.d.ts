@@ -11,6 +11,7 @@ declare module 'vue' {
     AppSidebar: typeof import('./components/AppSidebar.vue')['default']
     ChangeAvatarModal: typeof import('./components/modals/ChangeAvatarModal.vue')['default']
     ConfirmRemoveModal: typeof import('./components/modals/ConfirmRemoveModal.vue')['default']
+    EditableUserName: typeof import('./components/shared/EditableUserName.vue')['default']
     Grid4Icon: typeof import('./components/icons/Grid4Icon.vue')['default']
     Grid5Icon: typeof import('./components/icons/Grid5Icon.vue')['default']
     GridSize: typeof import('./components/shared/GridSize.vue')['default']

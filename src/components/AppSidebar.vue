@@ -19,26 +19,10 @@
     <!-- Drawer Main Content -->
     <v-col class="pa-0 d-flex flex-column justify-space-between h-100">
       <v-col class="py-8 drawer-header" align="center">
+
         <ChangeAvatarModal />
 
-        <!-- Editable User Name -->
-        <v-list-item-title
-          v-if="!isEditingName"
-          class="mt-3 mb-2 text-center text-white font-weight-bold text-h7 cursor-pointer"
-          @click="enableNameEdit"
-        >
-          {{ userName || "Enter your name" }}
-        </v-list-item-title>
-
-        <input
-          v-if="isEditingName"
-          ref="inputChangeNameRef"
-          v-model="userName"
-          class="mt-3 mb-2 text-center text-white font-weight-bold text-h7"
-          placeholder="Enter your name"
-          @blur="isEditingName = false"
-          @keydown.enter="isEditingName = false"
-        />
+        <EditableUserName />
 
         <v-list-item-subtitle class="text-center text-grey-lighten-3">
           {{ photosStore.photosAmount }} files
@@ -90,55 +74,41 @@
 </template>
 
 <script setup lang="ts">
-import { useStorage, onClickOutside } from "@vueuse/core";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 
-// Initialize store and state
+// Constants
+const CATEGORIES = [
+  { title: "Photos", href: "/" },
+  { title: "Videos", href: "/videos" },
+  { title: "Projects", href: "/projects" },
+];
+
+// Initialize state
 const photosStore = usePhotosStore();
 const showedDrawer = ref<boolean>(true);
 const { windowWidth } = useWindowSize();
 
-// Determine if the view is mobile
+// Computed property to determine if the view is mobile
 const isMobile = computed(() => windowWidth.value < 768);
 
-// User name state and editing flag
-const userName = useStorage("userName", "Amelia Rice");
-const inputChangeNameRef = ref<HTMLInputElement | null>(null);
-const isEditingName = ref<boolean>(false);
-
-onClickOutside(inputChangeNameRef, () => {
-  isEditingName.value = false;
-  console.log("clicked outside");
-});
-
-const enableNameEdit = async () => {
-  isEditingName.value = true;
-  await nextTick();
-  inputChangeNameRef.value?.focus();
-};
-
-// Close drawer on mobile after mounting
+// Lifecycle hooks
 onMounted(() => {
   if (isMobile.value) {
     showedDrawer.value = false;
   }
 });
 
-// Function to handle subheader icon click
 const subHeaderIconHandler = () => {
   alert("Coming soon!");
 };
-
-// Define categories and albums
-const CATEGORIES = [
-  { title: "Photos", href: "/" },
-  { title: "Videos", href: "/videos" },
-  { title: "Projects", href: "/projects" },
-];
 </script>
 
 <style scoped lang="scss">
+.username {
+  max-width: 100px;
+}
+
 .drawer-open-btn {
   position: fixed;
   left: -35px;
@@ -204,4 +174,3 @@ const CATEGORIES = [
   }
 }
 </style>
-
