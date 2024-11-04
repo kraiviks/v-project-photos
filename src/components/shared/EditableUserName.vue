@@ -13,7 +13,7 @@
       v-if="isEditing"
       ref="inputRef"
       v-model="name"
-      class="mt-3 mb-2 mx-2 text-center text-white font-weight-bold text-h7"
+      class="mt-3 mb-2 text-center text-white font-weight-bold text-h7 username"
       placeholder="Enter your name"
       @blur="disableEdit"
       @keydown.enter="disableEdit"
@@ -43,6 +43,6 @@ const disableEdit = () => {
 
 <style scoped>
 .username {
-  max-width: 100px;
+  max-width: 130px;
 }
 </style>
