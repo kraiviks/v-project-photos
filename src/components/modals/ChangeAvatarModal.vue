@@ -52,18 +52,10 @@
 <script setup lang="ts">
 import { useStorage } from "@vueuse/core";
 import defaultAvatar from "@/assets/avatar.png";
+import { checkImageAvailability } from '@/utils/helpers';
 
 const loadedAvatar = useStorage("avatar", "");
 const avatar = ref(loadedAvatar.value || defaultAvatar);
-
-// Function to check if an image is available
-const checkImageAvailability = (url: string, callback: (isAvailable: boolean) => void) => {
-  const img = new Image();
-  img.src = url;
-
-  img.onload = () => callback(true); // If the image is available
-  img.onerror = () => callback(false); // If the image is not available
-};
 
 // Watches for changes in loadedAvatar and updates avatar with availability check
 watch(loadedAvatar, (newVal) => {

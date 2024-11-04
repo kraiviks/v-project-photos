@@ -19,7 +19,6 @@
     <!-- Drawer Main Content -->
     <v-col class="pa-0 d-flex flex-column justify-space-between h-100">
       <v-col class="py-8 drawer-header" align="center">
-
         <ChangeAvatarModal />
 
         <EditableUserName />
@@ -52,7 +51,6 @@
           title="Albums"
           :list="photosStore.albums"
           subheaderIcon="mdi-plus-circle-outline"
-          :subHeaderIconHandler="subHeaderIconHandler"
         />
       </v-col>
 
@@ -67,15 +65,18 @@
     v-if="isMobile"
     class="drawer-open-btn"
     color="surface-variant"
-    image="@/assets/avatar.png"
+    :image="avatar"
     size="80"
     @click="showedDrawer = true"
   />
 </template>
 
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core';
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { usePhotosStore } from "@/stores/usePhotosStore";
+import defaultAvatar from "@/assets/avatar.png";
+import { checkImageAvailability } from '@/utils/helpers';
 
 // Constants
 const CATEGORIES = [
@@ -88,10 +89,11 @@ const CATEGORIES = [
 const photosStore = usePhotosStore();
 const showedDrawer = ref<boolean>(true);
 const { windowWidth } = useWindowSize();
+const loadedAvatar = useStorage("avatar", "");
+const avatar = ref(loadedAvatar.value || defaultAvatar);
 
 // Computed property to determine if the view is mobile
 const isMobile = computed(() => windowWidth.value < 768);
-
 // Lifecycle hooks
 onMounted(() => {
   if (isMobile.value) {
@@ -99,9 +101,16 @@ onMounted(() => {
   }
 });
 
-const subHeaderIconHandler = () => {
-  alert("Coming soon!");
-};
+// Watches for changes in loadedAvatar and updates avatar with availability check
+watch(loadedAvatar, (newVal) => {
+  if (newVal) {
+    checkImageAvailability(newVal, (isAvailable) => {
+      avatar.value = isAvailable ? newVal : defaultAvatar;
+    });
+  } else {
+    avatar.value = defaultAvatar;
+  }
+});
 </script>
 
 <style scoped lang="scss">

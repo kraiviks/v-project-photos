@@ -37,7 +37,6 @@ defineProps<{
   title: string;
   list: Array<{ title: string; href: string }>;
   subheaderIcon?: string;
-  subHeaderIconHandler?: () => void;
 }>();
 
 const route = useRoute();
