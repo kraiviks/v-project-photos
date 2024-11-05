@@ -9,8 +9,8 @@
     class="box"
   >
     <g
+      class="fill-color"
       transform="translate(0.000000,330.000000) scale(0.100000,-0.100000)"
-      fill="#ea5a5a"
       stroke="none"
     >
       <path
@@ -115,9 +115,13 @@
 
 <style scoped>
 .box {
-  border: 1px solid #ea5a5a;
+  border: 1px solid var(--v-primary-base);
   padding: 1px;
   height: max-content;
   width: max-content;
+}
+
+.fill-color {
+  fill: var(--v-primary-base);
 }
 </style>

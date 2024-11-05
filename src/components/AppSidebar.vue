@@ -4,7 +4,7 @@
     app
     width="223"
     :mobile="isMobile"
-    color="#1e1d26"
+    color="var(--v-sidebar-main-bg)"
     fixed
   >
     <!-- Close Drawer Button for Mobile -->
@@ -72,11 +72,11 @@
 </template>
 
 <script setup lang="ts">
-import { useStorage } from '@vueuse/core';
+import { useStorage } from "@vueuse/core";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { usePhotosStore } from "@/stores/usePhotosStore";
 import defaultAvatar from "@/assets/avatar.png";
-import { checkImageAvailability } from '@/utils/helpers';
+import { checkImageAvailability } from "@/utils/helpers";
 
 // Constants
 const CATEGORIES = [
@@ -140,14 +140,14 @@ watch(loadedAvatar, (newVal) => {
 
 .drawer-header {
   max-height: 270px;
-  background-color: #272631;
+  background-color: var(--v-sidebar-header-bg);
 }
 
 .drawer-footer {
   display: flex;
   align-items: center;
-  background-color: #19181e;
-  border-top: 1px solid #111111;
+  background-color: var(--v-sidebar-footer-bg);
+  border-top: 1px solid var(--v-sidebar-footer-border);
   max-height: 70px;
   :deep(.v-input__details) {
     display: none;
@@ -165,15 +165,15 @@ watch(loadedAvatar, (newVal) => {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: red;
-    box-shadow: 1px 1px 10px 3px red;
+    background: var(--v-btn-animate);
+    box-shadow: 1px 1px 10px 3px var(--v-btn-animate);
     transition: all 0.3s ease-in-out;
     z-index: -1;
   }
   &:hover {
     transform: translateY(-5%);
     :deep(.v-btn) {
-      background-color: #ea2e2e !important;
+      background-color: var(--v-btn-animate-hover) !important;
     }
     &::after {
       width: 80%;

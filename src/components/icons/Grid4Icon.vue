@@ -1,9 +1,9 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="box">
     <g
+      class="stroke-color"
       fill="none"
       fill-rule="evenodd"
-      stroke="#ea5a5a"
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="2"
@@ -15,9 +15,13 @@
 
 <style scoped>
 .box {
-  border: 1px solid #ea5a5a;
+  border: 1px solid var(--v-primary-base);
   padding: 1px;
   height: max-content;
   width: max-content;
+}
+
+.stroke-color {
+  stroke: var(--v-primary-base);
 }
 </style>

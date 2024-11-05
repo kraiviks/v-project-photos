@@ -6,7 +6,7 @@
     <v-slider
       v-model="columns"
       class="slider"
-      color="primary"
+      color="var(--v-primary-base)"
       track-size="2"
       thumb-size="10"
       min="1"

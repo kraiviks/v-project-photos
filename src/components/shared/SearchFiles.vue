@@ -108,7 +108,7 @@ function highlightText(title: string): HighlightedText[] {
   text-decoration: none;
 }
 .highlight {
-  background-color: #ea5a5a;
+  background-color: var(--v-primary-base);
   color: white;
   font-weight: bold;
 }

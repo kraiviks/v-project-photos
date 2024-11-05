@@ -26,7 +26,7 @@
           <v-btn text="Close" variant="plain" @click="isOpen = false"></v-btn>
 
           <v-btn
-            color="btn-primary"
+            color="var(--v-btn-primary-base)"
             text="Create"
             variant="tonal"
             @click="createAlbum"

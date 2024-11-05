@@ -7,20 +7,21 @@
 // Styles
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
-
+import "@/styles/colors.scss";
 // Composables
 import { createVuetify } from "vuetify";
+import { getCssVariable } from '@/utils/helpers';
 
 const myCustomLightTheme = {
   dark: false,
   colors: {
-    background: "#EBEBEB",
-    primary: "#ea5a5a",
-    secondary: "#6c757d",
-    "text-category": "#d6d5df",
-    "text-list-item": "a3a2a8",
-    "btn-primary": "#28a745",
-    "btn-dangerous": "#dc3545",
+    background: getCssVariable("--v-background-base"),
+    primary: getCssVariable("--v-primary-base"),
+    secondary: getCssVariable("--v-secondary-base"),
+    "text-category": getCssVariable("--v-text-category-base"),
+    "text-list-item": getCssVariable("--v-text-list-item-base"),
+    "btn-primary": getCssVariable("--v-btn-primary-base"),
+    "btn-dangerous": getCssVariable("--v-btn-dangerous-base"),
   },
 };
 

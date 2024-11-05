@@ -41,7 +41,7 @@
         <ConfirmRemoveModal
           size="20"
           :remove="handleDelete"
-          hoverIconColor="#ea5a5a"
+          hoverIconColor="var(--v-primary-base)"
         />
       </div>
     </v-img>
@@ -99,7 +99,7 @@ const handleDelete = async () => {
       }
     }
     .card-id {
-      color: #ea5a5a !important;
+      color: var(--v-primary-base) !important;
     }
     .card-image {
       box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.4);
@@ -107,7 +107,7 @@ const handleDelete = async () => {
   }
   .action {
     &:hover {
-      color: #ea5a5a !important;
+      color: var(--v-primary-base) !important;
     }
   }
 }

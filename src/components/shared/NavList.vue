@@ -9,10 +9,7 @@
         :class="{ 'custom-subheader': subheaderIcon }"
       >
         {{ title }}
-        <AddAlbumModal
-          v-if="subheaderIcon"
-          :triggerIcon="subheaderIcon"
-        />
+        <AddAlbumModal v-if="subheaderIcon" :triggerIcon="subheaderIcon" />
       </v-list-subheader>
 
       <!-- List items -->
@@ -59,7 +56,7 @@ const route = useRoute();
   padding: 0;
   &:hover,
   &.v-list-item--active {
-    border-left: 2px solid #ea5a5a;
+    border-left: 2px solid var(--v-primary-base);
     background-color: rgba(0, 0, 0, 0.7);
   }
 }
