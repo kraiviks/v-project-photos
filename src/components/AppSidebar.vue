@@ -13,7 +13,7 @@
       class="cursor-pointer drawer-close"
       @click="showedDrawer = false"
     >
-      <v-icon size="30">mdi-close-circle-outline</v-icon>
+      <v-icon size="30" color="primary">mdi-close-circle-outline</v-icon>
     </v-row>
 
     <!-- Drawer Main Content -->
