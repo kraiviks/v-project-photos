@@ -57,7 +57,7 @@
               >
               <v-btn
                 :disabled="!valid"
-                color="btn-primary"
+                color="primary"
                 variant="flat"
                 class="text-none"
                 type="submit"
